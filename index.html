@@ -2,8 +2,8 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Gift Catcher | Поймай подарок</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Gift Catcher | Поймай подарок — праздничная версия</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
@@ -12,94 +12,105 @@
     padding: 0;
     box-sizing: border-box;
     user-select: none;
+    -webkit-tap-highlight-color: transparent;
   }
   
   body {
     font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg, #1e293b, #0f172a);
+    background: linear-gradient(135deg, #0b1120, #0a0f1c);
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 12px;
+    touch-action: pan-x pan-y;
   }
   
   .game-wrapper {
     background: linear-gradient(145deg, #2d3a4e, #1e2a3a);
     border-radius: 48px;
-    padding: 24px;
-    box-shadow: 0 25px 45px rgba(0,0,0,0.4);
+    padding: 16px;
+    box-shadow: 0 20px 35px rgba(0,0,0,0.5);
+    width: 100%;
+    max-width: 750px;
   }
   
   canvas {
     display: block;
     margin: 0 auto;
-    border-radius: 24px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    border-radius: 28px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
     cursor: none;
     background: linear-gradient(180deg, #1e2a3a 0%, #0f172a 100%);
+    width: 100%;
+    height: auto;
+    touch-action: none;
   }
   
   .game-panel {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
-    padding: 16px 24px;
-    background: rgba(255,255,255,0.1);
+    margin-bottom: 16px;
+    padding: 10px 16px;
+    background: rgba(0,0,0,0.45);
     border-radius: 60px;
-    backdrop-filter: blur(10px);
-    gap: 16px;
+    backdrop-filter: blur(12px);
+    gap: 8px;
     flex-wrap: wrap;
   }
   
   .stat-card {
-    background: rgba(0,0,0,0.5);
-    padding: 8px 20px;
-    border-radius: 40px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  
-  .stat-card i {
-    font-size: 1.3rem;
-  }
-  
-  .stat-card .fa-gift { color: #fbbf24; }
-  .stat-card .fa-bomb { color: #ef4444; }
-  .stat-card .fa-star { color: #f59e0b; }
-  .stat-card .fa-heart { color: #ec489a; }
-  
-  .stat-value {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: white;
-  }
-  
-  .stat-label {
-    font-size: 0.7rem;
-    color: #94a3b8;
-    margin-left: 6px;
-  }
-  
-  .combo-badge {
-    background: linear-gradient(135deg, #f59e0b, #d97706);
-    padding: 8px 20px;
+    background: rgba(0,0,0,0.55);
+    padding: 6px 14px;
     border-radius: 40px;
     display: flex;
     align-items: center;
     gap: 8px;
+    backdrop-filter: blur(4px);
+  }
+  
+  .stat-card i {
+    font-size: 1.1rem;
+  }
+  .stat-card .fa-gift { color: #fbbf24; }
+  .stat-card .fa-leaf { color: #4ade80; }
+  .stat-card .fa-snowflake { color: #7dd3fc; }
+  .stat-card .fa-star { color: #f59e0b; }
+  .stat-card .fa-heart { color: #ec489a; }
+  
+  .stat-value {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: white;
+    line-height: 1;
+  }
+  
+  .stat-label {
+    font-size: 0.6rem;
+    color: #cbd5e1;
+    margin-left: 4px;
+    font-weight: 500;
+  }
+  
+  .combo-badge {
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    padding: 6px 16px;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 0 10px rgba(249,115,22,0.5);
   }
   
   .combo-badge i {
     color: white;
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
   
   .combo-badge span {
     font-size: 1.2rem;
-    font-weight: 700;
+    font-weight: 800;
     color: white;
   }
   
@@ -107,40 +118,50 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 20px;
-    gap: 16px;
+    margin-top: 16px;
+    gap: 12px;
     flex-wrap: wrap;
   }
   
   button {
     background: linear-gradient(135deg, #f59e0b, #d97706);
     border: none;
-    padding: 12px 28px;
-    border-radius: 40px;
-    font-size: 1rem;
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-size: 0.9rem;
     font-weight: 600;
     color: white;
     cursor: pointer;
     font-family: 'Inter', sans-serif;
     transition: all 0.2s;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    touch-action: manipulation;
   }
   
-  button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(245,158,11,0.4);
+  button:active {
+    transform: scale(0.96);
   }
   
   .controls-info {
-    background: rgba(0,0,0,0.5);
-    padding: 8px 20px;
+    background: rgba(0,0,0,0.6);
+    padding: 6px 16px;
     border-radius: 40px;
-    color: #94a3b8;
-    font-size: 0.8rem;
+    color: #cbd5e6;
+    font-size: 0.7rem;
     display: flex;
-    gap: 20px;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+  }
+  
+  .controls-info span {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
   }
   
   .modal {
@@ -149,46 +170,102 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.85);
+    background: rgba(0,0,0,0.88);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(12px);
+    padding: 20px;
   }
   
   .modal-content {
-    background: linear-gradient(135deg, #1e293b, #0f172a);
-    border-radius: 32px;
-    padding: 32px;
+    background: linear-gradient(135deg, #1f2a3e, #111827);
+    border-radius: 48px;
+    padding: 24px 20px;
     text-align: center;
-    max-width: 420px;
-    width: 90%;
-    border: 1px solid rgba(245,158,11,0.3);
+    max-width: 380px;
+    width: 100%;
+    border: 1px solid rgba(245,158,11,0.4);
+    box-shadow: 0 25px 40px rgba(0,0,0,0.5);
   }
   
   .modal-content h2 {
-    font-size: 2rem;
-    margin-bottom: 16px;
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+    color: #fbbf24;
   }
   
-  .modal-content .result-stats {
-    background: rgba(0,0,0,0.3);
-    border-radius: 24px;
+  .result-stats {
+    background: rgba(0,0,0,0.4);
+    border-radius: 32px;
     padding: 16px;
     margin: 20px 0;
+  }
+  
+  .result-stats p {
+    margin: 8px 0;
+    font-size: 1rem;
+    color: #e2e8f0;
   }
   
   .modal-buttons {
     display: flex;
     gap: 12px;
-    margin-top: 16px;
+    justify-content: center;
+    margin-top: 12px;
   }
   
-  @media (max-width: 768px) {
-    .game-panel { justify-content: center; }
-    .controls { flex-direction: column; }
-    .controls-info { order: -1; width: 100%; justify-content: center; }
+  .modal-buttons button {
+    flex: 1;
+    justify-content: center;
+    font-size: 0.9rem;
+    padding: 12px 0;
+  }
+  
+  @media (max-width: 550px) {
+    .game-wrapper {
+      padding: 12px;
+    }
+    .stat-card {
+      padding: 4px 10px;
+    }
+    .stat-value {
+      font-size: 1.1rem;
+    }
+    .combo-badge span {
+      font-size: 1rem;
+    }
+    .controls-info {
+      font-size: 0.65rem;
+      gap: 8px;
+    }
+    button {
+      padding: 10px 16px;
+      font-size: 0.8rem;
+    }
+  }
+  
+  .life-gain-effect {
+    position: fixed;
+    pointer-events: none;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #4ade80;
+    text-shadow: 0 0 10px #22c55e;
+    animation: floatUp 1s ease-out forwards;
+    z-index: 100;
+  }
+  
+  @keyframes floatUp {
+    0% {
+      opacity: 1;
+      transform: translateY(0) scale(0.5);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-80px) scale(1.2);
+    }
   }
 </style>
 </head>
@@ -199,14 +276,21 @@
       <i class="fas fa-gift"></i>
       <div>
         <span class="stat-value" id="score">0</span>
-        <span class="stat-label">ПОДАРКИ</span>
+        <span class="stat-label">ЗОЛОТЫЕ</span>
       </div>
     </div>
     <div class="stat-card">
-      <i class="fas fa-bomb"></i>
+      <i class="fas fa-leaf"></i>
       <div>
-        <span class="stat-value" id="bombs">0</span>
-        <span class="stat-label">БОМБЫ</span>
+        <span class="stat-value" id="greenGifts">0</span>
+        <span class="stat-label">ЗЕЛЕНЫЕ</span>
+      </div>
+    </div>
+    <div class="stat-card">
+      <i class="fas fa-snowflake"></i>
+      <div>
+        <span class="stat-value" id="snowballs">0</span>
+        <span class="stat-label">СНЕЖКИ</span>
       </div>
     </div>
     <div class="stat-card">
@@ -226,481 +310,635 @@
     <div class="combo-badge" id="comboBadge" style="display: none;">
       <i class="fas fa-fire"></i>
       <span id="combo">0</span>
-      <span style="font-size:0.8rem;">КОМБО</span>
+      <span style="font-size:0.7rem;">КОМБО</span>
     </div>
   </div>
   
-  <canvas id="gameCanvas" width="800" height="550"></canvas>
+  <canvas id="gameCanvas" width="700" height="500" style="width:100%; height:auto; max-width:700px; aspect-ratio:700/500"></canvas>
   
   <div class="controls">
     <button id="startBtn"><i class="fas fa-play"></i> Начать игру</button>
     <div class="controls-info">
-      <span><i class="fas fa-arrow-left"></i> ←</span>
-      <span><i class="fas fa-arrow-right"></i> →</span>
-      <span>или мышь</span>
-      <span><i class="fas fa-gift"></i> Подарок +10</span>
-      <span><i class="fas fa-bomb"></i> Бомба -20</span>
+      <span><i class="fas fa-fingerprint"></i> 👆 Сдвиг по экрану</span>
+      <span><i class="fas fa-gift"></i> +10</span>
+      <span><i class="fas fa-leaf"></i> +❤️ +15</span>
+      <span><i class="fas fa-snowflake"></i> -20</span>
     </div>
   </div>
 </div>
 
 <script>
-  const canvas = document.getElementById('gameCanvas');
-  const ctx = canvas.getContext('2d');
-  
-  // Игровые переменные
-  let gifts = [];        // падающие подарки
-  let score = 0;         // очки
-  let giftsCaught = 0;   // пойманные подарки
-  let bombsCaught = 0;   // пойманные бомбы
-  let lives = 3;
-  let combo = 0;
-  let gameRunning = false;
-  let animationId = null;
-  let comboTimeout = null;
-  
-  // Платформа
-  const paddle = {
-    width: 120,
-    height: 18,
-    x: canvas.width / 2 - 60,
-    y: canvas.height - 45,
-    speed: 7
-  };
-  
-  // Мяч
-  let ball = {
-    x: canvas.width / 2,
-    y: canvas.height - 80,
-    dx: 4,
-    dy: -4,
-    radius: 7,
-    active: true
-  };
-  
-  // Управление
-  let leftPressed = false;
-  let rightPressed = false;
-  
-  // Эффекты
-  let particles = [];
-  
-  // Настройки падающих предметов
-  let giftSpawnCounter = 0;
-  const GIFT_SPAWN_DELAY = 35;
-  
-  // Цвета для подарков
-  const giftColors = ['#fbbf24', '#f59e0b', '#ef4444', '#ec489a', '#8b5cf6', '#06b6d4'];
-  
-  // Создание частиц
-  function createParticles(x, y, color, isGift = true) {
-    const count = isGift ? 12 : 8;
-    for (let i = 0; i < count; i++) {
-      particles.push({
-        x: x,
-        y: y,
-        vx: (Math.random() - 0.5) * 5,
-        vy: (Math.random() - 0.5) * 4 - 2,
-        life: 1,
-        color: color,
-        size: Math.random() * 4 + 2
-      });
-    }
-  }
-  
-  // Обновление частиц
-  function updateParticles() {
-    for (let i = 0; i < particles.length; i++) {
-      particles[i].x += particles[i].vx;
-      particles[i].y += particles[i].vy;
-      particles[i].vy += 0.15;
-      particles[i].life -= 0.025;
-      if (particles[i].life <= 0) {
-        particles.splice(i, 1);
-        i--;
-      }
-    }
-  }
-  
-  // Спавн подарка или бомбы
-  function spawnItem() {
-    const isGift = Math.random() < 0.7; // 70% подарки, 30% бомбы
-    gifts.push({
-      x: Math.random() * (canvas.width - 40) + 20,
-      y: -30,
-      width: 32,
-      height: 32,
-      speed: 2 + Math.random() * 2,
-      isGift: isGift,
-      rotation: 0
-    });
-  }
-  
-  // Обновление комбо
-  function updateCombo() {
-    if (comboTimeout) clearTimeout(comboTimeout);
-    document.getElementById('comboBadge').style.display = 'flex';
-    document.getElementById('combo').innerText = combo;
-    comboTimeout = setTimeout(() => {
-      combo = 0;
-      document.getElementById('combo').innerText = '0';
-      document.getElementById('comboBadge').style.display = 'none';
-    }, 2000);
-  }
-  
-  // Обновление UI
-  function updateUI() {
-    document.getElementById('score').innerText = giftsCaught;
-    document.getElementById('bombs').innerText = bombsCaught;
-    document.getElementById('totalScore').innerText = score;
-    document.getElementById('lives').innerText = lives;
-  }
-  
-  // Отрисовка
-  function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  (function(){
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
     
-    // Градиентный фон
-    const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-    gradient.addColorStop(0, '#1e2a3a');
-    gradient.addColorStop(1, '#0f172a');
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    const CANVAS_W = 700;
+    const CANVAS_H = 500;
+    canvas.width = CANVAS_W;
+    canvas.height = CANVAS_H;
     
-    // Звёзды
-    ctx.fillStyle = 'rgba(255,255,255,0.2)';
-    for (let i = 0; i < 80; i++) {
-      if (i % 2 === 0) continue;
-      ctx.beginPath();
-      ctx.arc((i * 173) % canvas.width, (i * 257) % canvas.height, 1.2, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    
-    // Падающие предметы
-    gifts.forEach(g => {
-      ctx.save();
-      ctx.translate(g.x + g.width/2, g.y + g.height/2);
-      ctx.rotate(g.rotation);
-      
-      if (g.isGift) {
-        // Подарок 🎁
-        ctx.shadowBlur = 8;
-        ctx.shadowColor = 'rgba(251,191,36,0.5)';
-        ctx.fillStyle = '#fbbf24';
-        ctx.fillRect(-g.width/2, -g.height/2, g.width, g.height);
-        ctx.fillStyle = '#f59e0b';
-        ctx.fillRect(-g.width/2 + 8, -g.height/2 + 8, g.width - 16, g.height - 16);
-        ctx.fillStyle = '#fff';
-        ctx.font = `${g.width - 12}px "Segoe UI Emoji"`;
-        ctx.fillText('🎁', -12, 12);
-      } else {
-        // Бомба 💣
-        ctx.shadowBlur = 8;
-        ctx.shadowColor = 'rgba(239,68,68,0.5)';
-        ctx.fillStyle = '#2d2d2d';
-        ctx.beginPath();
-        ctx.arc(0, 0, g.width/2, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = '#ef4444';
-        ctx.font = `${g.width - 12}px "Segoe UI Emoji"`;
-        ctx.fillText('💣', -12, 10);
-        ctx.fillStyle = '#fff';
-        ctx.beginPath();
-        ctx.arc(8, -8, 4, 0, Math.PI * 2);
-        ctx.fill();
-      }
-      
-      ctx.restore();
-    });
-    
-    // Мяч
-    ctx.shadowBlur = 12;
-    ctx.shadowColor = 'rgba(245,158,11,0.6)';
-    ctx.beginPath();
-    ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
-    const gradientBall = ctx.createRadialGradient(ball.x - 3, ball.y - 3, 2, ball.x, ball.y, ball.radius);
-    gradientBall.addColorStop(0, '#fbbf24');
-    gradientBall.addColorStop(1, '#f59e0b');
-    ctx.fillStyle = gradientBall;
-    ctx.fill();
+    // Игровые переменные
+    let gifts = [];
+    let score = 0;
+    let goldGiftsCaught = 0;      // золотые подарки
+    let greenGiftsCaught = 0;      // зеленые подарки (дают жизнь)
+    let snowballsCaught = 0;
+    let lives = 3;
+    let combo = 0;
+    let gameRunning = false;
+    let animationId = null;
+    let comboTimeout = null;
     
     // Платформа
-    ctx.shadowBlur = 10;
-    ctx.shadowColor = 'rgba(245,158,11,0.5)';
-    ctx.fillStyle = '#f59e0b';
-    ctx.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
-    ctx.fillStyle = 'rgba(255,255,255,0.3)';
-    ctx.fillRect(paddle.x + 4, paddle.y + 3, paddle.width - 8, 4);
-    ctx.shadowBlur = 0;
+    const paddle = {
+      width: 130,
+      height: 18,
+      x: CANVAS_W / 2 - 65,
+      y: CANVAS_H - 42,
+      speed: 7.5
+    };
     
-    // Частицы
-    particles.forEach(p => {
-      ctx.globalAlpha = p.life;
-      ctx.fillStyle = p.color;
+    // Мяч
+    let ball = {
+      x: CANVAS_W / 2,
+      y: CANVAS_H - 75,
+      dx: 4,
+      dy: -4.2,
+      radius: 7,
+    };
+    
+    let leftPressed = false;
+    let rightPressed = false;
+    let particles = [];
+    let floatingTexts = []; // для всплывающих текстов
+    
+    let giftSpawnCounter = 0;
+    const GIFT_SPAWN_DELAY = 32;
+    
+    // Типы предметов:
+    // 'gold' - золотой подарок (обычный, +10 очков)
+    // 'green' - зеленый подарок (редкий, +1 жизнь +15 очков)
+    // 'snow' - снежок (штраф -20 очков)
+    
+    function createFloatingText(x, y, text, color) {
+      floatingTexts.push({
+        x: x, y: y, text: text, color: color, life: 1, vy: -2
+      });
+    }
+    
+    function updateFloatingTexts() {
+      for (let i = 0; i < floatingTexts.length; i++) {
+        floatingTexts[i].y += floatingTexts[i].vy;
+        floatingTexts[i].life -= 0.02;
+        if (floatingTexts[i].life <= 0) {
+          floatingTexts.splice(i, 1);
+          i--;
+        }
+      }
+    }
+    
+    function drawFloatingTexts() {
+      floatingTexts.forEach(t => {
+        ctx.globalAlpha = t.life;
+        ctx.font = `bold ${16 + (1 - t.life) * 8}px Inter`;
+        ctx.fillStyle = t.color;
+        ctx.shadowBlur = 4;
+        ctx.shadowColor = 'black';
+        ctx.fillText(t.text, t.x - 20, t.y - 15);
+        ctx.globalAlpha = 1;
+      });
+      ctx.shadowBlur = 0;
+    }
+    
+    function createParticles(x, y, color, count = 10) {
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: x, y: y,
+          vx: (Math.random() - 0.5) * 5,
+          vy: (Math.random() - 0.5) * 4 - 2,
+          life: 1,
+          color: color,
+          size: Math.random() * 4 + 2
+        });
+      }
+    }
+    
+    function updateParticles() {
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].x += particles[i].vx;
+        particles[i].y += particles[i].vy;
+        particles[i].vy += 0.15;
+        particles[i].life -= 0.025;
+        if (particles[i].life <= 0) {
+          particles.splice(i,1);
+          i--;
+        }
+      }
+    }
+    
+    // Спавн предметов: 65% золотой, 15% зеленый (редкий), 20% снежок
+    function spawnItem() {
+      const rand = Math.random();
+      let type;
+      if (rand < 0.65) {
+        type = 'gold';
+      } else if (rand < 0.80) {
+        type = 'green';
+      } else {
+        type = 'snow';
+      }
+      
+      gifts.push({
+        x: Math.random() * (CANVAS_W - 40) + 20,
+        y: -30,
+        width: 34,
+        height: 34,
+        speed: 2 + Math.random() * 2.3,
+        type: type,
+        rotation: 0,
+        pulsePhase: Math.random() * Math.PI * 2
+      });
+    }
+    
+    function updateCombo() {
+      if (comboTimeout) clearTimeout(comboTimeout);
+      document.getElementById('comboBadge').style.display = 'flex';
+      document.getElementById('combo').innerText = combo;
+      comboTimeout = setTimeout(() => {
+        combo = 0;
+        document.getElementById('combo').innerText = '0';
+        document.getElementById('comboBadge').style.display = 'none';
+      }, 2000);
+    }
+    
+    function updateUI() {
+      document.getElementById('score').innerText = goldGiftsCaught;
+      document.getElementById('greenGifts').innerText = greenGiftsCaught;
+      document.getElementById('snowballs').innerText = snowballsCaught;
+      document.getElementById('totalScore').innerText = score;
+      document.getElementById('lives').innerText = lives;
+    }
+    
+    // Отрисовка золотого подарка с контурной подсветкой
+    function drawGoldGift(x, y, width, height, rotation, pulseOffset) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(rotation);
+      
+      const time = Date.now() / 380;
+      const glowStrength = 0.5 + Math.sin(time + pulseOffset) * 0.3;
+      const glowSize = 12 + Math.sin(time * 1.5 + pulseOffset) * 3;
+      
+      ctx.shadowBlur = glowSize;
+      ctx.shadowColor = `rgba(251, 191, 36, ${0.7 + glowStrength * 0.3})`;
+      
+      ctx.fillStyle = '#fbbf24';
+      ctx.fillRect(-width/2, -height/2, width, height);
+      
+      ctx.fillStyle = '#f97316';
+      ctx.fillRect(-width/2 + 8, -height/2 + 12, width - 16, 6);
+      ctx.fillRect(-width/2 + 12, -height/2 + 8, 6, height - 16);
+      
+      ctx.fillStyle = '#ef4444';
       ctx.beginPath();
-      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.ellipse(-width/2 + 12, -height/2 + 10, 6, 4, 0, 0, Math.PI * 2);
       ctx.fill();
-    });
-    ctx.globalAlpha = 1;
+      ctx.beginPath();
+      ctx.ellipse(width/2 - 12, -height/2 + 10, 6, 4, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#dc2626';
+      ctx.beginPath();
+      ctx.arc(0, -height/2 + 10, 5, 0, Math.PI * 2);
+      ctx.fill();
+      
+      ctx.font = `${width - 12}px "Segoe UI Emoji"`;
+      ctx.fillStyle = '#fff9e6';
+      ctx.fillText('🎁', -12, 12);
+      
+      ctx.restore();
+    }
     
-    // Эффект комбо
-    if (combo > 0 && comboTimeout) {
-      ctx.font = 'bold 28px Inter';
+    // Отрисовка зеленого подарка (редкий, дает жизнь)
+    function drawGreenGift(x, y, width, height, rotation, pulseOffset) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(rotation);
+      
+      const time = Date.now() / 380;
+      const glowSize = 10 + Math.sin(time * 1.8 + pulseOffset) * 4;
+      
+      ctx.shadowBlur = glowSize;
+      ctx.shadowColor = `rgba(74, 222, 128, 0.8)`;
+      
+      ctx.fillStyle = '#4ade80';
+      ctx.fillRect(-width/2, -height/2, width, height);
+      
+      ctx.fillStyle = '#22c55e';
+      ctx.fillRect(-width/2 + 8, -height/2 + 12, width - 16, 6);
+      ctx.fillRect(-width/2 + 12, -height/2 + 8, 6, height - 16);
+      
+      ctx.fillStyle = '#f97316';
+      ctx.beginPath();
+      ctx.ellipse(-width/2 + 12, -height/2 + 10, 6, 4, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.ellipse(width/2 - 12, -height/2 + 10, 6, 4, 0, 0, Math.PI * 2);
+      ctx.fill();
+      
+      ctx.font = `${width - 12}px "Segoe UI Emoji"`;
+      ctx.fillStyle = '#fff9e6';
+      ctx.fillText('🍀', -12, 12);
+      
+      ctx.restore();
+    }
+    
+    // Отрисовка снежка
+    function drawSnowball(x, y, radius, rotation) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(rotation);
+      
+      ctx.shadowBlur = 8;
+      ctx.shadowColor = '#7dd3fc88';
+      
+      const grad = ctx.createRadialGradient(-5, -5, 3, 0, 0, radius);
+      grad.addColorStop(0, '#e0f2fe');
+      grad.addColorStop(1, '#bae6fd');
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(0, 0, radius, 0, Math.PI * 2);
+      ctx.fill();
+      
+      ctx.fillStyle = '#ffffffcc';
+      ctx.beginPath();
+      ctx.arc(-4, -3, 2, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(5, 2, 1.5, 0, Math.PI * 2);
+      ctx.fill();
+      
+      ctx.font = `${radius * 1.3}px "Segoe UI Emoji"`;
+      ctx.fillStyle = '#7dd3fc';
+      ctx.fillText('❄️', -8, 8);
+      
+      ctx.restore();
+    }
+    
+    // === ОТРИСОВКА ===
+    function draw() {
+      ctx.clearRect(0, 0, CANVAS_W, CANVAS_H);
+      
+      const grad = ctx.createLinearGradient(0, 0, 0, CANVAS_H);
+      grad.addColorStop(0, '#1e2a3a');
+      grad.addColorStop(1, '#0a0f1c');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+      
+      ctx.fillStyle = 'rgba(255,240,200,0.3)';
+      for (let i = 0; i < 80; i++) {
+        ctx.beginPath();
+        ctx.arc((i * 131) % CANVAS_W, (i * 271) % CANVAS_H, 1.2, 0, Math.PI*2);
+        ctx.fill();
+      }
+      
+      gifts.forEach(g => {
+        if (g.type === 'gold') {
+          drawGoldGift(g.x + g.width/2, g.y + g.height/2, g.width, g.height, g.rotation, g.pulsePhase);
+        } else if (g.type === 'green') {
+          drawGreenGift(g.x + g.width/2, g.y + g.height/2, g.width, g.height, g.rotation, g.pulsePhase);
+        } else {
+          drawSnowball(g.x + g.width/2, g.y + g.height/2, g.width/2.2, g.rotation);
+        }
+      });
+      
       ctx.shadowBlur = 12;
       ctx.shadowColor = '#f59e0b';
-      ctx.fillStyle = '#fbbf24';
-      ctx.textAlign = 'center';
-      ctx.fillText(`x${combo} КОМБО!`, canvas.width / 2, 70);
-      ctx.textAlign = 'left';
-    }
-  }
-  
-  // Обновление физики
-  function update() {
-    if (!gameRunning) return;
-    
-    // Движение платформы
-    if (leftPressed && paddle.x > 0) paddle.x -= paddle.speed;
-    if (rightPressed && paddle.x < canvas.width - paddle.width) paddle.x += paddle.speed;
-    
-    // Движение мяча
-    ball.x += ball.dx;
-    ball.y += ball.dy;
-    
-    // Столкновение со стенами
-    if (ball.x + ball.radius > canvas.width) {
-      ball.x = canvas.width - ball.radius;
-      ball.dx = -ball.dx;
-      createParticles(ball.x, ball.y, '#fbbf24', true);
-    } else if (ball.x - ball.radius < 0) {
-      ball.x = ball.radius;
-      ball.dx = -ball.dx;
-      createParticles(ball.x, ball.y, '#fbbf24', true);
-    }
-    
-    if (ball.y - ball.radius < 0) {
-      ball.y = ball.radius;
-      ball.dy = -ball.dy;
-      createParticles(ball.x, ball.y, '#fbbf24', true);
-    }
-    
-    // Столкновение с платформой
-    if (ball.y + ball.radius > paddle.y && 
-        ball.y - ball.radius < paddle.y + paddle.height &&
-        ball.x + ball.radius > paddle.x && 
-        ball.x - ball.radius < paddle.x + paddle.width) {
+      ctx.beginPath();
+      ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI*2);
+      const ballGrad = ctx.createRadialGradient(ball.x-2, ball.y-2, 2, ball.x, ball.y, ball.radius);
+      ballGrad.addColorStop(0, '#ffd966');
+      ballGrad.addColorStop(1, '#e67e22');
+      ctx.fillStyle = ballGrad;
+      ctx.fill();
       
-      const hitPos = (ball.x - paddle.x) / paddle.width;
-      const angle = (hitPos - 0.5) * Math.PI / 2.2;
-      const speed = Math.sqrt(ball.dx * ball.dx + ball.dy * ball.dy);
+      ctx.shadowBlur = 8;
+      ctx.fillStyle = '#f59e0b';
+      ctx.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
+      ctx.fillStyle = 'rgba(255,245,200,0.6)';
+      ctx.fillRect(paddle.x+5, paddle.y+3, paddle.width-10, 4);
       
-      ball.dx = Math.sin(angle) * speed;
-      ball.dy = -Math.cos(angle) * speed;
-      ball.y = paddle.y - ball.radius;
+      particles.forEach(p => {
+        ctx.globalAlpha = p.life;
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
+        ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+      ctx.shadowBlur = 0;
       
-      createParticles(ball.x, ball.y, '#f59e0b', true);
-      if (navigator.vibrate) navigator.vibrate(30);
+      drawFloatingTexts();
+      
+      if (combo > 0 && comboTimeout) {
+        ctx.font = 'bold 26px Inter';
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = '#f97316';
+        ctx.fillStyle = '#ffdd88';
+        ctx.textAlign = 'center';
+        ctx.fillText(`✨ x${combo} КОМБО! ✨`, CANVAS_W/2, 65);
+        ctx.textAlign = 'left';
+      }
     }
     
-    // Потеря мяча
-    if (ball.y + ball.radius > canvas.height) {
-      lives--;
-      updateUI();
-      createParticles(ball.x, ball.y, '#ef4444', false);
-      if (navigator.vibrate) navigator.vibrate(100);
+    // === ОБНОВЛЕНИЕ ЛОГИКИ ===
+    function update() {
+      if (!gameRunning) return;
       
-      if (lives <= 0) {
-        gameOver();
-        return;
+      if (leftPressed && paddle.x > 0) paddle.x -= paddle.speed;
+      if (rightPressed && paddle.x < CANVAS_W - paddle.width) paddle.x += paddle.speed;
+      
+      ball.x += ball.dx;
+      ball.y += ball.dy;
+      
+      if (ball.x + ball.radius > CANVAS_W) {
+        ball.x = CANVAS_W - ball.radius;
+        ball.dx = -ball.dx;
+        createParticles(ball.x, ball.y, '#fbbf24', 6);
+      } else if (ball.x - ball.radius < 0) {
+        ball.x = ball.radius;
+        ball.dx = -ball.dx;
+        createParticles(ball.x, ball.y, '#fbbf24', 6);
+      }
+      if (ball.y - ball.radius < 0) {
+        ball.y = ball.radius;
+        ball.dy = -ball.dy;
+        createParticles(ball.x, ball.y, '#fbbf24', 6);
       }
       
-      // Сброс мяча
-      ball.x = canvas.width / 2;
-      ball.y = canvas.height - 80;
-      ball.dx = 4 * (Math.random() > 0.5 ? 1 : -1);
-      ball.dy = -4;
+      if (ball.y + ball.radius > paddle.y && ball.y - ball.radius < paddle.y + paddle.height &&
+          ball.x + ball.radius > paddle.x && ball.x - ball.radius < paddle.x + paddle.width) {
+        const hitPos = (ball.x - paddle.x) / paddle.width;
+        const angle = (hitPos - 0.5) * Math.PI / 2.2;
+        const speed = Math.hypot(ball.dx, ball.dy);
+        ball.dx = Math.sin(angle) * speed;
+        ball.dy = -Math.cos(angle) * speed;
+        ball.y = paddle.y - ball.radius;
+        createParticles(ball.x, ball.y, '#f59e0b', 8);
+        if (navigator.vibrate) navigator.vibrate(20);
+      }
       
-      // Сброс комбо
-      combo = 0;
-      if (comboTimeout) clearTimeout(comboTimeout);
-      document.getElementById('comboBadge').style.display = 'none';
-    }
-    
-    // Движение и столкновение с подарками
-    for (let i = 0; i < gifts.length; i++) {
-      const g = gifts[i];
-      g.y += g.speed;
-      g.rotation += 0.05;
-      
-      // Столкновение с мячом
-      if (ball.x + ball.radius > g.x && 
-          ball.x - ball.radius < g.x + g.width &&
-          ball.y + ball.radius > g.y && 
-          ball.y - ball.radius < g.y + g.height) {
+      if (ball.y + ball.radius > CANVAS_H) {
+        lives--;
+        updateUI();
+        createParticles(ball.x, ball.y, '#7dd3fc', 12);
+        if (navigator.vibrate) navigator.vibrate(80);
+        createFloatingText(ball.x, ball.y, '-1 жизнь', '#ef4444');
         
-        if (g.isGift) {
-          const points = 10 + Math.floor(combo / 5) * 2;
-          score += points;
-          giftsCaught++;
-          combo++;
-          updateCombo();
-          createParticles(g.x + g.width/2, g.y + g.height/2, '#fbbf24', true);
-          if (navigator.vibrate) navigator.vibrate(40);
-        } else {
-          const penalty = 20;
-          score = Math.max(0, score - penalty);
-          bombsCaught++;
-          combo = 0;
-          if (comboTimeout) clearTimeout(comboTimeout);
-          document.getElementById('comboBadge').style.display = 'none';
-          createParticles(g.x + g.width/2, g.y + g.height/2, '#ef4444', false);
-          if (navigator.vibrate) navigator.vibrate(60);
+        if (lives <= 0) {
+          gameOver();
+          return;
+        }
+        ball.x = CANVAS_W / 2;
+        ball.y = CANVAS_H - 75;
+        ball.dx = 4 * (Math.random() > 0.5 ? 1 : -1);
+        ball.dy = -4;
+        combo = 0;
+        if (comboTimeout) clearTimeout(comboTimeout);
+        document.getElementById('comboBadge').style.display = 'none';
+      }
+      
+      for (let i = 0; i < gifts.length; i++) {
+        const g = gifts[i];
+        g.y += g.speed;
+        g.rotation += 0.055;
+        
+        if (ball.x + ball.radius > g.x && ball.x - ball.radius < g.x + g.width &&
+            ball.y + ball.radius > g.y && ball.y - ball.radius < g.y + g.height) {
+          
+          if (g.type === 'gold') {
+            const points = 10 + Math.floor(combo / 5) * 2;
+            score += points;
+            goldGiftsCaught++;
+            combo++;
+            updateCombo();
+            createParticles(g.x + g.width/2, g.y + g.height/2, '#fbbf24', 12);
+            createFloatingText(g.x + g.width/2, g.y + g.height/2, `+${points}`, '#fbbf24');
+            if (navigator.vibrate) navigator.vibrate(30);
+            
+          } else if (g.type === 'green') {
+            // Зеленый подарок: +1 жизнь, +15 очков
+            const points = 15;
+            score += points;
+            greenGiftsCaught++;
+            lives = Math.min(lives + 1, 9); // максимум 9 жизней
+            // Комбо не увеличивается, но и не сбрасывается
+            createParticles(g.x + g.width/2, g.y + g.height/2, '#4ade80', 20);
+            createFloatingText(g.x + g.width/2, g.y + g.height/2, `+❤️ +${points}`, '#4ade80');
+            if (navigator.vibrate) navigator.vibrate(50);
+            
+            // Эффект получения жизни на весь экран
+            const lifeDiv = document.createElement('div');
+            lifeDiv.className = 'life-gain-effect';
+            lifeDiv.innerHTML = '+1 ЖИЗНЬ';
+            lifeDiv.style.left = (g.x + g.width/2) + 'px';
+            lifeDiv.style.top = (g.y + g.height/2) + 'px';
+            lifeDiv.style.position = 'fixed';
+            lifeDiv.style.transform = 'translate(-50%, -50%)';
+            document.body.appendChild(lifeDiv);
+            setTimeout(() => lifeDiv.remove(), 1000);
+            
+          } else {
+            // Снежок: штраф -20 очков, сброс комбо
+            const penalty = 20;
+            score = Math.max(0, score - penalty);
+            snowballsCaught++;
+            combo = 0;
+            if (comboTimeout) clearTimeout(comboTimeout);
+            document.getElementById('comboBadge').style.display = 'none';
+            createParticles(g.x + g.width/2, g.y + g.height/2, '#7dd3fc', 12);
+            createFloatingText(g.x + g.width/2, g.y + g.height/2, `-${penalty}`, '#7dd3fc');
+            if (navigator.vibrate) navigator.vibrate(55);
+          }
+          
+          gifts.splice(i,1);
+          updateUI();
+          ball.dy = -ball.dy * 1.04;
+          break;
         }
         
-        gifts.splice(i, 1);
-        updateUI();
-        
-        // Небольшой отскок мяча
-        ball.dy = -ball.dy * 1.05;
-        break;
+        if (g.y > CANVAS_H) {
+          gifts.splice(i,1);
+          i--;
+        }
       }
       
-      // Удаление вышедших за экран
-      if (g.y > canvas.height) {
-        gifts.splice(i, 1);
-        i--;
+      giftSpawnCounter++;
+      if (giftSpawnCounter >= GIFT_SPAWN_DELAY && gameRunning) {
+        giftSpawnCounter = 0;
+        spawnItem();
+      }
+      
+      updateParticles();
+      updateFloatingTexts();
+    }
+    
+    function gameLoop() {
+      update();
+      draw();
+      animationId = requestAnimationFrame(gameLoop);
+    }
+    
+    function gameOver() {
+      gameRunning = false;
+      if (animationId) cancelAnimationFrame(animationId);
+      
+      const modalDiv = document.createElement('div');
+      modalDiv.className = 'modal';
+      modalDiv.innerHTML = `
+        <div class="modal-content">
+          <h2>🎄 GAME OVER</h2>
+          <div class="result-stats">
+            <p><i class="fas fa-gift"></i> Золотых: ${goldGiftsCaught}</p>
+            <p><i class="fas fa-leaf"></i> Зеленых: ${greenGiftsCaught}</p>
+            <p><i class="fas fa-snowflake"></i> Снежков: ${snowballsCaught}</p>
+            <p><i class="fas fa-star"></i> Очков: ${score}</p>
+            <p><i class="fas fa-heart"></i> Жизней получено: ${greenGiftsCaught}</p>
+          </div>
+          <div class="modal-buttons">
+            <button id="restartModalBtn"><i class="fas fa-redo"></i> Сыграть снова</button>
+            <button id="closeModalBtn"><i class="fas fa-check"></i> Закрыть</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modalDiv);
+      
+      document.getElementById('restartModalBtn').onclick = () => {
+        modalDiv.remove();
+        resetGame();
+        startGame();
+      };
+      document.getElementById('closeModalBtn').onclick = () => modalDiv.remove();
+    }
+    
+    function resetGame() {
+      gifts = [];
+      score = 0;
+      goldGiftsCaught = 0;
+      greenGiftsCaught = 0;
+      snowballsCaught = 0;
+      lives = 3;
+      combo = 0;
+      giftSpawnCounter = 0;
+      floatingTexts = [];
+      paddle.x = CANVAS_W / 2 - paddle.width / 2;
+      ball.x = CANVAS_W / 2;
+      ball.y = CANVAS_H - 75;
+      ball.dx = 4;
+      ball.dy = -4.2;
+      if (comboTimeout) clearTimeout(comboTimeout);
+      document.getElementById('comboBadge').style.display = 'none';
+      updateUI();
+      particles = [];
+    }
+    
+    function startGame() {
+      if (gameRunning) return;
+      resetGame();
+      gameRunning = true;
+      if (animationId) cancelAnimationFrame(animationId);
+      animationId = requestAnimationFrame(gameLoop);
+    }
+    
+    // === УПРАВЛЕНИЕ ===
+    let activeTouchId = null;
+    
+    function handleTouchMoveForPaddle(clientX) {
+      const rect = canvas.getBoundingClientRect();
+      const scaleX = CANVAS_W / rect.width;
+      let touchCanvasX = (clientX - rect.left) * scaleX;
+      touchCanvasX = Math.min(Math.max(touchCanvasX, 0), CANVAS_W);
+      let newPaddleX = touchCanvasX - paddle.width / 2;
+      newPaddleX = Math.min(Math.max(newPaddleX, 0), CANVAS_W - paddle.width);
+      paddle.x = newPaddleX;
+    }
+    
+    function onTouchStart(e) {
+      e.preventDefault();
+      if (!gameRunning) return;
+      for (let i = 0; i < e.touches.length; i++) {
+        const touch = e.touches[i];
+        const rect = canvas.getBoundingClientRect();
+        const touchY = (touch.clientY - rect.top) * (CANVAS_H / rect.width);
+        if (touchY >= paddle.y - 20) {
+          handleTouchMoveForPaddle(touch.clientX);
+          activeTouchId = touch.identifier;
+          break;
+        }
       }
     }
     
-    // Спавн новых предметов
-    giftSpawnCounter++;
-    if (giftSpawnCounter >= GIFT_SPAWN_DELAY && gameRunning) {
-      giftSpawnCounter = 0;
-      spawnItem();
+    function onTouchMove(e) {
+      e.preventDefault();
+      if (!gameRunning) return;
+      for (let i = 0; i < e.touches.length; i++) {
+        const touch = e.touches[i];
+        if (activeTouchId === null || touch.identifier === activeTouchId) {
+          handleTouchMoveForPaddle(touch.clientX);
+          activeTouchId = touch.identifier;
+          break;
+        }
+      }
     }
     
-    updateParticles();
-  }
-  
-  // Игровой цикл
-  function gameLoop() {
-    update();
-    draw();
-    animationId = requestAnimationFrame(gameLoop);
-  }
-  
-  // Завершение игры
-  function gameOver() {
-    gameRunning = false;
-    cancelAnimationFrame(animationId);
-    
-    const modal = document.createElement('div');
-    modal.className = 'modal';
-    modal.innerHTML = `
-      <div class="modal-content">
-        <h2 style="color: #f59e0b;">🎁 ИГРА ОКОНЧЕНА</h2>
-        <div class="result-stats">
-          <p style="color: #fbbf24; font-size: 1.2rem; margin-bottom: 12px;">Ваш результат</p>
-          <p><i class="fas fa-gift"></i> Подарков: ${giftsCaught}</p>
-          <p><i class="fas fa-bomb"></i> Бомб: ${bombsCaught}</p>
-          <p><i class="fas fa-star"></i> Очков: ${score}</p>
-          <p><i class="fas fa-fire"></i> Макс. комбо: ${combo}</p>
-        </div>
-        <div class="modal-buttons">
-          <button id="restartBtn"><i class="fas fa-redo"></i> Играть снова</button>
-          <button id="closeBtn"><i class="fas fa-check"></i> Отлично!</button>
-        </div>
-      </div>
-    `;
-    document.body.appendChild(modal);
-    
-    document.getElementById('restartBtn').onclick = () => {
-      modal.remove();
-      resetGame();
-      startGame();
-    };
-    document.getElementById('closeBtn').onclick = () => modal.remove();
-    
-    // Сохраняем результат для конструктора приглашений
-    if (window.saveGameResult) {
-      window.saveGameResult(score, giftsCaught, bombsCaught);
+    function onTouchEnd(e) {
+      e.preventDefault();
+      activeTouchId = null;
     }
-  }
-  
-  // Сброс игры
-  function resetGame() {
-    gifts = [];
-    score = 0;
-    giftsCaught = 0;
-    bombsCaught = 0;
-    lives = 3;
-    combo = 0;
-    giftSpawnCounter = 0;
     
-    paddle.x = canvas.width / 2 - paddle.width / 2;
-    ball.x = canvas.width / 2;
-    ball.y = canvas.height - 80;
-    ball.dx = 4;
-    ball.dy = -4;
+    let mouseDown = false;
+    function onMouseMove(e) {
+      if (!gameRunning && !mouseDown) return;
+      const rect = canvas.getBoundingClientRect();
+      const scaleX = CANVAS_W / rect.width;
+      let mouseCanvasX = (e.clientX - rect.left) * scaleX;
+      if (mouseCanvasX >= 0 && mouseCanvasX <= CANVAS_W) {
+        let newX = mouseCanvasX - paddle.width/2;
+        newX = Math.min(Math.max(newX, 0), CANVAS_W - paddle.width);
+        paddle.x = newX;
+      }
+    }
     
-    if (comboTimeout) clearTimeout(comboTimeout);
-    document.getElementById('comboBadge').style.display = 'none';
-    updateUI();
-  }
-  
-  // Запуск игры
-  function startGame() {
-    if (gameRunning) return;
+    function onMouseDown(e) {
+      mouseDown = true;
+      onMouseMove(e);
+      e.preventDefault();
+    }
+    function onMouseUp() { mouseDown = false; }
+    
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') { leftPressed = true; e.preventDefault(); }
+      else if (e.key === 'ArrowRight') { rightPressed = true; e.preventDefault(); }
+    });
+    document.addEventListener('keyup', (e) => {
+      if (e.key === 'ArrowLeft') leftPressed = false;
+      if (e.key === 'ArrowRight') rightPressed = false;
+    });
+    
+    canvas.addEventListener('touchstart', onTouchStart, { passive: false });
+    canvas.addEventListener('touchmove', onTouchMove, { passive: false });
+    canvas.addEventListener('touchend', onTouchEnd);
+    canvas.addEventListener('touchcancel', onTouchEnd);
+    
+    canvas.addEventListener('mousemove', onMouseMove);
+    canvas.addEventListener('mousedown', onMouseDown);
+    window.addEventListener('mouseup', onMouseUp);
+    
+    document.getElementById('startBtn').addEventListener('click', startGame);
+    
     resetGame();
-    gameRunning = true;
-    gameLoop();
-  }
-  
-  // Управление мышью
-  function handleMouseMove(e) {
-    const rect = canvas.getBoundingClientRect();
-    const scaleX = canvas.width / rect.width;
-    let mouseX;
-    
-    if (e.touches) {
-      mouseX = (e.touches[0].clientX - rect.left) * scaleX;
-      e.preventDefault();
-    } else {
-      mouseX = (e.clientX - rect.left) * scaleX;
-    }
-    
-    let newX = mouseX - paddle.width / 2;
-    newX = Math.max(0, Math.min(newX, canvas.width - paddle.width));
-    paddle.x = newX;
-  }
-  
-  // Обработчики событий
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') {
-      leftPressed = true;
-      e.preventDefault();
-    } else if (e.key === 'ArrowRight') {
-      rightPressed = true;
-      e.preventDefault();
-    }
-  });
-  
-  document.addEventListener('keyup', (e) => {
-    if (e.key === 'ArrowLeft') leftPressed = false;
-    if (e.key === 'ArrowRight') rightPressed = false;
-  });
-  
-  canvas.addEventListener('mousemove', handleMouseMove);
-  canvas.addEventListener('touchmove', handleMouseMove);
-  canvas.addEventListener('touchstart', (e) => e.preventDefault());
-  
-  document.getElementById('startBtn').addEventListener('click', startGame);
-  
-  // Инициализация
-  resetGame();
-  draw();
-  
-  console.log('🎮 Игра "Поймай подарок" готова!');
+    draw();
+    console.log('🎁 Золотые и зеленые подарки! Снежки теперь реже!');
+  })();
 </script>
 </body>
 </html>
